@@ -27,6 +27,28 @@ socketIO.on('connection', function(socket) {
     socket.on('disconnect', function(data) {
         console.log(socket.id + ' has disconnected');
     });
+
+    socket.on('player1Portal', function(data){
+        console.log('player 1 portal event heard')
+        socketIO.sockets.emit("Player2SpawnBall")
+    });
+
+    socket.on("player2Portal", function(data){
+        console.log('player 2 portal event heard')
+        socketIO.sockets.emit("Player1SpawnBall")
+    });
+    
+    socket.on("player1Win", function(data){
+        console.log('player 1 win event heard')
+        socketIO.sockets.emit("Player2Loss")
+    });
+    
+    socket.on("player2Win", function(data){
+        console.log('player 2 win event heard')
+        socketIO.sockets.emit("Player1Loss")
+    });
+    
+
 });
 
 //finally, start server
