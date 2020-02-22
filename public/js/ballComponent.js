@@ -5,26 +5,43 @@ AFRAME.registerComponent('ball-component', {
     init : function(){
         const Context_AF = this; //this refers to "this" component
 
+        if (Context_AF.el.getAttribute("data-state") == "throw"){
+            Context_AF.el.addEventListener('collide', function(e){
+
+                if(e.detail.body.el.id == "floor"){
+                    Context_AF.destroy()
+                } 
+                else if (e.detail.body.el.id == "portal"){
+                    var event = new Event('portalThrow');
+                    document.dispatchEvent(event)
+                    Context_AF.destroy()
+                }
+                else if (e.detail.body.el.id == "basketTrigger"){
+                    var event = new Event('pointsScored');
+                    document.dispatchEvent(event)
+                    Context_AF.destroy()
+                }
+            })
+        }
+
         Context_AF.el.addEventListener('click', function(event){
             
             if (Context_AF.el.getAttribute("data-state") == "active"){
                 Context_AF.throw()
             } else if (Context_AF.el.getAttribute("data-state") == "pickup"){
                 Context_AF.pickup()
-            }
-                
+            }   
         });
         Context_AF.el.addEventListener('mouseenter', function(event){
             //el = element or entity
             //object3D = three.js 3D geometry object
             //scale = three.js vector that represents scale
             Context_AF.el.object3D.scale.set(1.1, 1.1, 1.1);
-            Context_AF.el.setAttribute('material', 'color:#2222FF');
         });
         Context_AF.el.addEventListener('mouseleave', function(event){
             Context_AF.el.object3D.scale.set(1.0, 1.0, 1.0);
-            Context_AF.el.setAttribute('material', 'color:#0000FF');
         });
+        
     }, 
 
     pickup : function(){
