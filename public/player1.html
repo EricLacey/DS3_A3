@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    </head>
+
+    <body>
+        
+        <a-scene>
+            <a-entity environment="preset: forest"></a-entity>
+
+            <a-entity geometry="primitive:plane; height:10; width:5" rotation="-90 0 0" position="0 0.001 0" material="side:double"></a-entity>
+            <a-entity geometry="primitive:plane; height:5; width:5" rotation="0 0 0" position="0 2.5 -5" material="side:double"></a-entity>
+            <a-entity geometry="primitive:plane; height:1; width:5" rotation="0 0 0" position="0 0.5 5" material="side:double"></a-entity>
+            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="-2.5 0.5 0" material="side:double"></a-entity>
+            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="2.5 0.5 0" material="side:double"></a-entity>
+            <a-entity geometry="primitive:triangle; vertexA:0 5 -5; vertexB:0 1 -5; vertexC:0 1 5" position="-2.5 0 0"  material="side:double"></a-entity>
+            <a-entity geometry="primitive:triangle; vertexA:0 5 -5; vertexB:0 1 -5; vertexC:0 1 5" position="2.5 0 0"  material="side:double"></a-entity>
+
+            <a-entity position="0 4 -4.5">
+                <a-entity geometry="primitive: torus; radius: 1; radiusTubular: 0.1; arc: 360" rotation="90 0 0" ></a-entity>
+            </a-entity>
+            
+
+
+            
+            <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+            
+        </a-scene>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            let socket = io();
+        
+            //default connect event
+            socket.on('connect', function() {
+                console.log("connected!");
+            });
+        </script>
+    </body>
+</html>
