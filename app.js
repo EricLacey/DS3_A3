@@ -47,7 +47,6 @@ socketIO.on('connection', function(socket) {
         console.log('player 2 win event heard')
         socketIO.sockets.emit("Player1Loss")
     });
-    
 
 });
 
