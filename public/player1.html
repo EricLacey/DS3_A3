@@ -4,29 +4,43 @@
     <head>
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
         <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+        <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+        <script src="js/ballComponent.js"></script>
     </head>
 
     <body>
         
-        <a-scene>
+        <a-scene id="scene" physics="debug: true">
             <a-entity environment="preset: forest"></a-entity>
 
-            <a-entity geometry="primitive:plane; height:10; width:5" rotation="-90 0 0" position="0 0.001 0" material="side:double"></a-entity>
-            <a-entity geometry="primitive:plane; height:5; width:5" rotation="0 0 0" position="0 2.5 -5" material="side:double"></a-entity>
-            <a-entity geometry="primitive:plane; height:1; width:5" rotation="0 0 0" position="0 0.5 5" material="side:double"></a-entity>
-            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="-2.5 0.5 0" material="side:double"></a-entity>
-            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="2.5 0.5 0" material="side:double"></a-entity>
-            <a-entity geometry="primitive:triangle; vertexA:0 5 -5; vertexB:0 1 -5; vertexC:0 1 5" position="-2.5 0 0"  material="side:double"></a-entity>
-            <a-entity geometry="primitive:triangle; vertexA:0 5 -5; vertexB:0 1 -5; vertexC:0 1 5" position="2.5 0 0"  material="side:double"></a-entity>
+            <!--Environment-->
+            <!--Visible with static body-->
+            <a-entity static-body geometry="primitive:plane; height:10; width:5" rotation="-90 0 0" position="0 0.001 0" material="side:double; color:#BBBBFF"></a-entity>
+            <a-entity static-body geometry="primitive:plane; height:8; width:5" rotation="0 0 0" position="0 4 -5" material="side:double; color:#BBBBFF"></a-entity>
+            <!--invisible static body-->
+            <a-entity static-body geometry="primitive:plane; height:10; width:5" rotation="-90 0 0" position="0 8 0" visible="false"></a-entity>
+            <a-entity static-body geometry="primitive:plane; height:8; width:5" rotation="0 0 0" position="0 4 5" visible="false"></a-entity>
+            <a-entity static-body geometry="primitive:plane; height:8; width:10" rotation="0 90 0" position="-2.5 4 0" visible="false"></a-entity>
+            <a-entity static-body geometry="primitive:plane; height:8; width:10" rotation="0 90 0" position="2.5 4 0" visible="false"></a-entity>
+            <!--Visible no static body-->
+            <a-entity geometry="primitive:plane; height:1; width:5" rotation="0 0 0" position="0 0.5 5" material="side:double; color:#BBBBFF"></a-entity>
+            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="-2.5 0.5 0" material="side:double; color:#BBBBFF"></a-entity>
+            <a-entity geometry="primitive:plane; height:1; width:10" rotation="0 90 0" position="2.5 0.5 0" material="side:double; color:#BBBBFF"></a-entity>
+            <a-entity geometry="primitive:triangle; vertexA:0 8 -5; vertexB:0 1 -5; vertexC:0 1 5" position="-2.5 0 0"  material="side:double; color:#BBBBFF"></a-entity>
+            <a-entity geometry="primitive:triangle; vertexA:0 8 -5; vertexB:0 1 -5; vertexC:0 1 5" position="2.5 0 0"  material="side:double; color:#BBBBFF"></a-entity>
 
+            <!--basketball net-->
             <a-entity position="0 4 -4.5">
-                <a-entity geometry="primitive: torus; radius: 1; radiusTubular: 0.1; arc: 360" rotation="90 0 0" ></a-entity>
+                <a-entity static-body="shape:mesh" geometry="primitive: torus; radius: 1; radiusTubular: 0.1; arc: 360" rotation="90 0 0" material="color:#000099"></a-entity>
             </a-entity>
             
+            <a-entity dynamic-body ball-component="" data-state="pickup" class="clickable" physics="restitution:3.0" geometry="primitive:sphere; radius:0.2" position="0 6 -4.5"></a-entity>
 
 
             
-            <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+            <a-entity id="camera" camera look-controls wasd-controls position="0 1.6 0">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:100; objects:.clickable;"></a-entity>
+            </a-entity>
             
         </a-scene>
 
